@@ -60,4 +60,12 @@ public class AlertService {
 
         return alertRepository.save(alert);
     }
+
+    public List<Alert> getAlertsByProductAndDate(Long productId, LocalDate alertDate) {
+        return alertRepository.findByProductIdAndAlertDate(productId, alertDate);
+    }
+
+    public List<Alert> getAlertsByUserAndDateInterval(Long userId, LocalDate fromDate, LocalDate toDate) {
+        return alertRepository.findByUserIdAndDateInterval(userId, fromDate, toDate);
+    }
 }
