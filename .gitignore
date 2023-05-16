@@ -1,0 +1,4 @@
+# Project exclude paths
+/epcsd-spring-2023-notification/target/
+/epcsd-spring-2023-productcatalog/target/
+/epcsd-spring-2023-user/target/

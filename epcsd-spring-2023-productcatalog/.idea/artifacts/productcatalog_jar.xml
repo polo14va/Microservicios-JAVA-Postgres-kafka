@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="productcatalog:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/productcatalog_jar</output-path>
+    <root id="archive" name="productcatalog.jar">
+      <element id="module-output" name="productcatalog" />
+    </root>
+  </artifact>
+</component>
