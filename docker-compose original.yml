@@ -1,0 +1,101 @@
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    platform: linux/amd64
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    platform: linux/amd64
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:9092
+      - 19092:19092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://kafka:29092, CONNECTIONS_FROM_HOST://kafka:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  productdb:
+    image: postgres
+    platform: linux/amd64
+    restart: always
+    ports:
+      - 54320:5432
+    environment:
+      POSTGRES_USER: product
+      POSTGRES_PASSWORD: product
+
+  userdb:
+    image: postgres
+    platform: linux/amd64
+    restart: always
+    ports:
+      - 54321:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+
+  adminer:
+    image: adminer
+    platform: linux/amd64
+    restart: always
+    ports:
+      - 18080:8080
+
+  productcatalog:
+    container_name: productcatalog
+    image: productcatalog:0.0.1-SNAPSHOT
+    platform: linux/arm64/v8
+    restart: always
+    depends_on:
+      - productdb
+      - kafka
+    ports:
+      - 18081:18081
+    environment:
+      DATABASE_HOST: productdb
+      DATABASE_PORT: 5432
+      KAFKA_HOST: kafka
+      JAVA_OPTS: "-Dfile.encoding=UTF-8"
+
+  user:
+    container_name: user
+    image: user:0.0.1-SNAPSHOT
+    platform: linux/arm64/v8
+    restart: always
+    depends_on:
+      - userdb
+      - productcatalog
+    ports:
+      - 18082:18082
+    environment:
+      DATABASE_HOST: userdb
+      DATABASE_PORT: 5432
+      PRODUCT_HOST: productcatalog
+      JAVA_OPTS: "-Dfile.encoding=UTF-8"
+
+  notification:
+    container_name: notification
+    image: notification:0.0.1-SNAPSHOT
+    platform: linux/arm64/v8
+    restart: always
+    depends_on:
+      - user
+      - kafka
+    ports:
+      - 18083:18083
+    environment:
+      KAFKA_HOST: kafka
+      USER_HOST: user
