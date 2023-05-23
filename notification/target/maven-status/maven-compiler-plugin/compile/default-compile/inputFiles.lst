@@ -1,0 +1,8 @@
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/kafka/KafkaClassListener.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/NotificationApplication.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/config/ApplicationConfig.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/rest/dtos/GetUserResponse.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/kafka/ProductMessage.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/services/NotificationService.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/kafka/KafkaConstants.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/notification/src/main/java/edu/uoc/epcsd/notification/kafka/KafkaConsumerConfig.java

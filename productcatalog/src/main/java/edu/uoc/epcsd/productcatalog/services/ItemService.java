@@ -9,7 +9,6 @@ import edu.uoc.epcsd.productcatalog.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,13 +33,27 @@ public class ItemService {
         return itemRepository.findBySerialNumber(serialNumber);
     }
 
-    public Item setOperational(String serialNumber, @RequestBody Boolean operational) {
+    public Item setOperational(String serialNumber, Boolean operational) {
+        Optional<Item> optionalItem = itemRepository.findBySerialNumber(serialNumber);
 
-        // TODO: complete this method:
+        if (optionalItem.isEmpty()) {
+            throw new IllegalArgumentException("Could not find the item with serial number: " + serialNumber);
+        }
 
-        return null;
+        Item item = optionalItem.get();
 
+        if (operational) {
+            item.setStatus(ItemStatus.OPERATIONAL);
+            productKafkaTemplate.send(KafkaConstants.PRODUCT_TOPIC + KafkaConstants.SEPARATOR + KafkaConstants.UNIT_AVAILABLE,
+                    ProductMessage.builder().productId(item.getProduct().getId()).build());
+        } else {
+            item.setStatus(ItemStatus.NON_OPERATIONAL);
+        }
+
+        return itemRepository.save(item);
     }
+
+
     public Item createItem(Long productId, String serialNumber) {
 
         // bu default a new unit is OPERATIONAL
@@ -60,4 +73,12 @@ public class ItemService {
 
         return savedItem;
     }
+
+    public void deleteItemsByProductId(Long productId) {
+        List<Item> items = itemRepository.findByProductId(productId);
+        itemRepository.deleteAll(items);
+    }
+
+
+
 }

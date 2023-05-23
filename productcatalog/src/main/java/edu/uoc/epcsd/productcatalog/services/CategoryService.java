@@ -29,11 +29,23 @@ public class CategoryService {
         if (parentId != null) {
             Optional<Category> parent = categoryRepository.findById(parentId);
 
-            if (parent.isPresent()) {
-                category.setParent(parent.get());
-            }
+            parent.ifPresent(category::setParent);
         }
 
         return categoryRepository.save(category);
     }
+
+    public Optional<Category> findByName(String name) {
+        return categoryRepository.findByName(name);
+    }
+
+    public List<Category> findByDescription(String description) {
+        return categoryRepository.findByDescription(description);
+    }
+
+    public List<Category> findByParentId(Long parentId) {
+        return categoryRepository.findByParentId(parentId);
+    }
+
+
 }

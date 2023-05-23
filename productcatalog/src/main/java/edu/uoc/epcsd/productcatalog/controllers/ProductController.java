@@ -4,6 +4,7 @@ package edu.uoc.epcsd.productcatalog.controllers;
 import edu.uoc.epcsd.productcatalog.controllers.dtos.CreateProductRequest;
 import edu.uoc.epcsd.productcatalog.controllers.dtos.GetProductResponse;
 import edu.uoc.epcsd.productcatalog.entities.Product;
+import edu.uoc.epcsd.productcatalog.services.ItemService;
 import edu.uoc.epcsd.productcatalog.services.ProductService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
@@ -63,7 +67,31 @@ public class ProductController {
 
     // TODO: add the code for the missing system operations here:
     // 1. remove product (use DELETE HTTP verb). Must remove the associated items
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void removeProduct(@PathVariable @NotNull Long productId) {
+        log.trace("removeProduct");
+        itemService.deleteItemsByProductId(productId);
+        //productService.deleteProduct(productId);
+    }
+
     // 2. query products by name
+    @GetMapping("/name/{productName}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Product> getProductsByName(@PathVariable @NotNull String productName) {
+        log.trace("getProductsByName");
+
+        return productService.findByName(productName);
+    }
+
     // 3. query products by category/subcategory
+    @GetMapping("/category/{categoryName}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Product> getProductsByCategory(@PathVariable @NotNull String categoryName) {
+        log.trace("getProductsByCategory");
+
+        return productService.findByCategory(categoryName);
+    }
+
 
 }

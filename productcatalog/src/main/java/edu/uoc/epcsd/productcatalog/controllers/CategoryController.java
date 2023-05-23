@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @RestController
@@ -48,6 +49,27 @@ public class CategoryController {
 
     // TODO: add the code for the missing system operations here:
     // 1. query categories by name
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Category> getCategoryByName(@PathVariable String name) {
+        log.trace("getCategoryByName");
+        Optional<Category> category = categoryService.findByName(name);
+        return category.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     // 2. query categories by description
+    @GetMapping("/description/{description}")
+    public ResponseEntity<List<Category>> getCategoriesByDescription(@PathVariable String description) {
+        log.trace("getCategoriesByDescription");
+        List<Category> categories = categoryService.findByDescription(description);
+        return ResponseEntity.ok(categories);
+    }
+
     // 3. query categories by parent category (must return all categories under the category specified by the id parameter)
+    @GetMapping("/parent/{parentId}")
+    public ResponseEntity<List<Category>> getCategoriesByParent(@PathVariable Long parentId) {
+        log.trace("getCategoriesByParent");
+        List<Category> categories = categoryService.findByParentId(parentId);
+        return ResponseEntity.ok(categories);
+    }
+
 }

@@ -3,6 +3,7 @@ package edu.uoc.epcsd.productcatalog.controllers;
 
 import edu.uoc.epcsd.productcatalog.controllers.dtos.CreateItemRequest;
 import edu.uoc.epcsd.productcatalog.entities.Item;
+import edu.uoc.epcsd.productcatalog.entities.ItemStatus;
 import edu.uoc.epcsd.productcatalog.services.ItemService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @RestController
@@ -60,5 +62,17 @@ public class ItemController {
     //  * use the correct HTTP verb
     //  * must ensure the item exists
     //  * if the new status is OPERATIONAL, must send a UNIT_AVAILABLE message to the kafka message queue (see ItemService.createItem method)
+    @PutMapping("/{serialNumber}/operational")
+    public ResponseEntity<Item> setOperational(@PathVariable String serialNumber, @RequestBody Boolean operational) {
+        log.trace("setOperational");
+
+        try {
+            Item updatedItem = itemService.setOperational(serialNumber, operational);
+            return ResponseEntity.ok(updatedItem);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }
