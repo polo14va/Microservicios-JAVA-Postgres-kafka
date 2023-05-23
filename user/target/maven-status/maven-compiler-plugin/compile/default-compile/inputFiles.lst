@@ -1,0 +1,13 @@
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/services/AlertService.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/repositories/UserRepository.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/controllers/dtos/GetUserResponse.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/controllers/dtos/GetProductResponse.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/controllers/dtos/CreateAlertRequest.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/controllers/AlertController.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/UserApplication.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/controllers/dtos/CreateUserRequest.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/services/UserService.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/entities/Alert.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/repositories/AlertRepository.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/entities/User.java
+/Users/pedro/Documents/UOC/3-ISCDS/PR2/Proyecto/user/src/main/java/edu/uoc/epcsd/user/controllers/UserController.java
