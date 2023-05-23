@@ -1,13 +1,10 @@
 #!/bin/bash
 
-# lista de carpetas
 folders=("productcatalog" "user" "notification")
 
-# inicializa las variables para verificar si se pasaron los argumentos '-build' o '-docker'
 build=false
 docker=false
 
-# itera sobre todos los argumentos
 for arg in "$@"
 do
     if [ "$arg" == "-build" ]; then
@@ -18,8 +15,7 @@ do
 done
 
 if $docker && ! $build; then
-    # ejecuta docker-compose up
-    docker-compose up -d
+    docker-compose up -d # ejecuta docker-compose up
 fi
 
 # define una función para matar todos los procesos de Java que se están ejecutando
@@ -34,25 +30,20 @@ trap cleanup INT EXIT
 
 for folder in "${folders[@]}"
 do
-
-  # navega a la carpeta
   pushd $folder
 
   if $build; then
-    # si se pasó el argumento '-build', ejecuta 'mvn clean package'
     mvn clean package
   else
-    # navega al directorio 'target' dentro de la carpeta
     pushd target
 
-    # encuentra y ejecuta el archivo .jar correspondiente
     jar_file=$(ls $folder-*.jar)
     java -jar $jar_file &
 
-    # regresa al directorio original
-    popd
     popd
   fi
+  
+  popd
 
 done
 

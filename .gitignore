@@ -1,10 +1,13 @@
 # Project exclude paths
-/epcsd-spring-2023-notification/target/*/
-/epcsd-spring-2023-productcatalog/target/*/
-/epcsd-spring-2023-user/target/*/
-/epcsd-spring-2023-notification/.idea/
-/epcsd-spring-2023-user/.idea/
-/epcsd-spring-2023-productcatalog/.idea/
 /.idea/
 /.vscode/
 .DS_Store
+/notification/.idea/
+/notification/.vscode/
+/notification/.DS_Store
+/productcatalog/.idea/
+/productcatalog/.vscode/
+/productcatalog/.DS_Store
+/user/.idea/
+/user/.vscode/
+/user/.DS_Store
